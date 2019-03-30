@@ -26,12 +26,6 @@
                 <extensions>true</extensions>
                 <configuration>
                     <copyToAppsDirectory>true</copyToAppsDirectory>
-                    <inclusions>
-                        <inclusion>
-                            <groupId>org.mule.modules</groupId>
-                            <artifactId>mule-module-mongo</artifactId>
-                        </inclusion>
-                    </inclusions>
                 </configuration>
             </plugin>
             <plugin>
@@ -130,11 +124,6 @@
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-mongo</artifactId>
-            <version>4.3.0</version>
-        </dependency>
     </dependencies>
 
     <repositories>
@@ -149,11 +138,6 @@
             <name>MuleSoft Releases Repository</name>
             <url>http://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
-        </repository>
-        <repository>
-            <id>mule-ee-releases</id>
-            <name>MuleEE Releases Repository</name>
-            <url>https://repository-master.mulesoft.org/nexus/content/repositories/releases-ee/</url>
         </repository>
     </repositories>
 

@@ -8,29 +8,17 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit"
     xmlns:http="http://www.mulesoft.org/schema/mule/http"
-    xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo"
 
     xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/current/mule-mongo.xsd">
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
     <context:property-placeholder location="local.properties"/>
 
     <http:listener-config name="exp-tourofheros-api-v1-httpListenerConfig" host="${exp.tourofheros.api.v1.http.host}" port="${exp.tourofheros.api.v1.http.port}" basePath="${exp.tourofheros.api.v1.http.base.path}" doc:name="HTTP Listener Configuration"/>
     <apikit:config name="exp-tourofheros-api-v1-config" raml="exp-tourofheros-api-v1.raml" consoleEnabled="false" doc:name="Router"/>
-    <mongo:config
-        name="Mongo_DB__Configuration"
-        username="${exp.tourofheros.api.v1.mongo.username}"
-        password="${exp.tourofheros.api.v1.mongo.password}"
-        database="${exp.tourofheros.api.v1.mongo.database}"
-        host="${exp.tourofheros.api.v1.mongo.host}:${exp.tourofheros.api.v1.mongo.port}"
-        ssl="${exp.tourofheros.api.v1.mongo.ssl}"
-        authenticationDatabase="${exp.tourofheros.api.v1.mongo.auth.database}"
-        connectTimeout="${exp.tourofheros.api.v1.mongo.connect.timeout}"
-        doc:name="Mongo DB: Configuration"/>
 
     <apikit:mapping-exception-strategy name="exp-tourofheros-api-v1-apiKitGlobalExceptionMapping">
         <apikit:mapping statusCode="404">
