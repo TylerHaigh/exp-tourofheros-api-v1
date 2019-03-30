@@ -135,3 +135,4 @@ reports/
 # End of https://www.gitignore.io/api/mule,maven,eclipse,visualstudiocode
 
 e2e-reports/
+node_modules/
