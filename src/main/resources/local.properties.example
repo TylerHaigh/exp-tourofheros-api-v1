@@ -1,0 +1,3 @@
+exp.tourofheros.api.v1.http.host=localhost
+exp.tourofheros.api.v1.http.port=8081
+exp.tourofheros.api.v1.http.base.path=/api/tourofheros

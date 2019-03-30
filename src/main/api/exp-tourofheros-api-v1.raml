@@ -1,0 +1,49 @@
+#%RAML 1.0
+
+title: Tour of Heros
+version: 1
+baseUri: http://localhost:8081/api/tourofheros
+
+types:
+  Hero: !include dataTypes/hero.raml
+
+/heros:
+  post:
+    description: Saves a hero to the database
+    body:
+      application/json:
+        type: Hero
+        example: !include examples/post-hero.json
+
+  get:
+    description: Gets all heros in the database
+    responses:
+      200:
+        body:
+          application/json:
+            type: Hero[]
+            example: !include examples/get-all-heros.json
+
+  /{id}:
+    description: Interacts with the hero with the given ID
+
+    get:
+      description: Retrieves the hero record from the database
+      responses:
+        200:
+          body:
+            application/json:
+              type: Hero
+              example: !include examples/get-hero-by-id.json
+
+    put:
+      description: Updates the hero record in the databse
+      responses:
+        200:
+          body:
+            application/json:
+              type: Hero
+              example: !include examples/put-hero.json
+
+    delete:
+      description: Deletes the hero record in the database
