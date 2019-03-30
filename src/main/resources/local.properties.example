@@ -1,3 +1,13 @@
 exp.tourofheros.api.v1.http.host=localhost
 exp.tourofheros.api.v1.http.port=8081
 exp.tourofheros.api.v1.http.base.path=/api/tourofheros
+
+exp.tourofheros.api.v1.mongo.username=example_username
+exp.tourofheros.api.v1.mongo.password=example_password
+exp.tourofheros.api.v1.mongo.host=localhost
+exp.tourofheros.api.v1.mongo.port=27017
+exp.tourofheros.api.v1.mongo.auth.database=admin
+exp.tourofheros.api.v1.mongo.ssl=false
+exp.tourofheros.api.v1.mongo.database=tourOfHeros
+exp.tourofheros.api.v1.mongo.connect.timeout=30000
+exp.tourofheros.api.v1.mongo.heros.collection=heros

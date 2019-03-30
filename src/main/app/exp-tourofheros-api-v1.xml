@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule
+<mule xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo"
     xmlns="http://www.mulesoft.org/schema/mule/core"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:spring="http://www.springframework.org/schema/beans"
@@ -11,7 +11,8 @@
     xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/current/mule-mongo.xsd">
 
      <flow name="exp-tourofheros-api-v1-main">
         <http:listener config-ref="exp-tourofheros-api-v1-httpListenerConfig" path="/*" doc:name="HTTP"/>
@@ -41,7 +42,10 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     </flow>
 
     <flow name="post:/heros:application/json:exp-tourofheros-api-v1-config">
-        <set-payload value="#[NullPayload.getInstance()]" doc:name="Set Payload"/>
+        <byte-array-to-string-transformer mimeType="application/json" doc:name="Byte Array to String"/>
+        <mongo:insert-document config-ref="Mongo_DB__Configuration" collection="${exp.tourofheros.api.v1.mongo.heros.collection}" doc:name="Mongo DB: Insert Document"/>
+        <set-property propertyName="http.status" value="#[201]" doc:name="Property"/>
+
     </flow>
 
 </mule>
