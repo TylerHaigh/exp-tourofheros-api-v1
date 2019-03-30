@@ -14,7 +14,8 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     <munit:config name="munit" doc:name="MUnit configuration" mock-connectors="false" mock-inbounds="false"/>
 
     <spring:beans>
-        <spring:import resource="classpath:exp-tourofheros-api-v1.xml"/>
+        <spring:import resource="classpath:config.xml"/>
+        <spring:import resource="classpath:impl/heros-api.xml"/>
     </spring:beans>
 
 </mule>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule
+    xmlns="http://www.mulesoft.org/schema/mule/core"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+
+    xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <sub-flow name="heros-api:/update-hero">
+        <byte-array-to-string-transformer mimeType="application/json" doc:name="Byte Array to String"/>
+        <invoke object-ref="mongoDbClient" method="updateDocument" methodArguments="#[flowVars.id],#[payload]" methodArgumentTypes="java.lang.Integer,java.lang.String" doc:name="Invoke updateDocument"/>
+
+        <choice doc:name="Payload == null">
+            <when expression="#[payloadIsNullOrEmpty()]">
+                <logger level="INFO" message="No log found" doc:name="Log: No record found"/>
+                <set-property propertyName="http.status" value="#[404]" doc:name="HTTP 404"/>
+                <set-payload value="{ &quot;message&quot;: &quot;Not found&quot; }" doc:name="Set Payload error message"/>
+            </when>
+            <otherwise>
+                <logger level="INFO" message="Updated" doc:name="Log: Updated"/>
+                <set-property propertyName="http.status" value="#[200]" doc:name="HTTP 200"/>
+            </otherwise>
+        </choice>
+
+    </sub-flow>
+
+
+
+    <sub-flow name="heros-api:/delete-hero">
+        <invoke object-ref="mongoDbClient" method="deleteDocument" methodArguments="#[flowVars.id]" methodArgumentTypes="java.lang.Integer" doc:name="Invoke deleteDocument"/>
+
+        <choice doc:name="Payload == null">
+            <when expression="#[payloadIsNullOrEmpty()]">
+                <logger level="INFO" message="No log found" doc:name="Log: No record found"/>
+                <set-property propertyName="http.status" value="#[404]" doc:name="HTTP 404"/>
+                <set-payload value="{ &quot;message&quot;: &quot;Not found&quot; }" doc:name="Set Payload error message"/>
+            </when>
+            <otherwise>
+                <logger level="INFO" message="Updated" doc:name="Log: Updated"/>
+                <set-property propertyName="http.status" value="#[200]" doc:name="HTTP 200"/>
+            </otherwise>
+        </choice>
+    </sub-flow>
+
+
+
+    <sub-flow name="heros-api:/get-all-heros">
+        <invoke object-ref="mongoDbClient" method="getAllDocuments" doc:name="Invoke getAllDocuments"/>
+    </sub-flow>
+
+
+
+
+    <sub-flow name="heros-api:/get-hero-by-id">
+        <invoke object-ref="mongoDbClient" method="getDocumentById" methodArguments="#[flowVars.id]" methodArgumentTypes="java.lang.Integer" doc:name="Invoke getDocumentById"/>
+
+        <choice doc:name="Payload == null">
+            <when expression="#[payloadIsNullOrEmpty()]">
+                <logger level="INFO" message="No log found" doc:name="Log: No record found"/>
+                <set-property propertyName="http.status" value="#[404]" doc:name="HTTP 404"/>
+                <set-payload value="{ &quot;message&quot;: &quot;Not found&quot; }" doc:name="Set Payload error message"/>
+            </when>
+            <otherwise>
+                <logger level="INFO" message="Updated" doc:name="Log: Updated"/>
+                <set-property propertyName="http.status" value="#[200]" doc:name="HTTP 200"/>
+            </otherwise>
+        </choice>
+    </sub-flow>
+
+
+
+
+    <sub-flow name="heros-api:/post-hero">
+        <byte-array-to-string-transformer mimeType="application/json" doc:name="Byte Array to String"/>
+        <!-- https://dzone.com/articles/invoke-java-method-in-mule-flow -->
+        <invoke object-ref="mongoDbClient" method="insertDocument" methodArguments="#[payload]" methodArgumentTypes="java.lang.String" doc:name="Invoke insertDocument"/>
+        <set-property propertyName="http.status" value="#[201]" doc:name="Property"/>
+
+    </sub-flow>
+
+</mule>

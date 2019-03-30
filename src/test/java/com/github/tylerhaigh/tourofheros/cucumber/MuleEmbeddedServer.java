@@ -15,7 +15,7 @@ public class MuleEmbeddedServer extends FunctionalMunitSuite {
     // https://blog.codecentric.de/en/2015/01/mule-esb-testing-part-23-integration-testing-endpoint-mocking-munit/
     private static final List<String> CONFIG_RESOURCES = asList(
         "config.xml",
-        "exp-tourofheros-api-v1.xml"
+        "impl/heros-api.xml"
     );
 
 
