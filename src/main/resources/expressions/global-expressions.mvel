@@ -1,0 +1,22 @@
+def payloadIsNullOrEmpty() {
+    return objectIsNullOrEmpty(payload)
+}
+
+
+def objectIsNullOrEmpty(obj) {
+    return  obj == null ||
+            obj == "null" ||
+            obj == NullPayload.getInstance() ||
+            obj == "{NullPayload}" ||
+            obj == empty
+}
+
+def getExceptionMessage() {
+    return exception.cause != null
+        ? (exception.cause.message != null ? exception.cause.message : exception.cause)
+        : exception.getMessage()
+}
+
+def objectNvl(origObject, defaultObject) {
+    return objectIsNullOrEmpty (origObject) ? defaultObject : origObject
+}

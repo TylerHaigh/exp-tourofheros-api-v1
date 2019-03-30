@@ -20,6 +20,24 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <http:listener-config name="exp-tourofheros-api-v1-httpListenerConfig" host="${exp.tourofheros.api.v1.http.host}" port="${exp.tourofheros.api.v1.http.port}" basePath="${exp.tourofheros.api.v1.http.base.path}" doc:name="HTTP Listener Configuration"/>
     <apikit:config name="exp-tourofheros-api-v1-config" raml="exp-tourofheros-api-v1.raml" consoleEnabled="false" doc:name="Router"/>
 
+    <spring:beans>
+        <spring:bean id="mongoDbClient" name="mongoDbClient" class="com.github.tylerhaigh.tourofheros.mongo.MongoDbClient" scope="singleton">
+            <spring:property name="username" value="${exp.tourofheros.api.v1.mongo.username}"/>
+            <spring:property name="password" value="${exp.tourofheros.api.v1.mongo.password}"/>
+            <spring:property name="host" value="${exp.tourofheros.api.v1.mongo.host}"/>
+            <spring:property name="port" value="${exp.tourofheros.api.v1.mongo.port}"/>
+            <spring:property name="authDb" value="${exp.tourofheros.api.v1.mongo.auth.database}"/>
+            <spring:property name="database" value="${exp.tourofheros.api.v1.mongo.database}"/>
+            <spring:property name="collection" value="${exp.tourofheros.api.v1.mongo.heros.collection}"/>
+        </spring:bean>
+    </spring:beans>
+
+    <configuration doc:name="Global_Functions">
+        <expression-language>
+            <global-functions file="expressions/global-expressions.mvel" />
+        </expression-language>
+    </configuration>
+
     <apikit:mapping-exception-strategy name="exp-tourofheros-api-v1-apiKitGlobalExceptionMapping">
         <apikit:mapping statusCode="404">
             <apikit:exception value="org.mule.module.apikit.exception.NotFoundException" />
